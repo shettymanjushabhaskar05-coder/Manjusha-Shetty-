@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manjusha Bhaskar Shetty — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1209;
+    --ink2: #3d2e14;
+    --cream: #faf6ee;
+    --parchment: #f3ead8;
+    --gold: #c9933b;
+    --gold-lt: #e8c87a;
+    --rust: #a04b2a;
+    --sage: #4a6741;
+    --slate: #8b9aa8;
+    --white: #ffffff;
+    --border: rgba(201,147,59,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+
+  /* ── NAVIGATION ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(250,246,238,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink2); text-decoration: none; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; position: relative;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    gap: 4rem;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: -1; overflow: hidden;
+  }
+  .hero-bg svg { width: 100%; height: 100%; }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 2rem; height: 1px; background: var(--gold);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.08;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  h1 em { color: var(--gold); font-style: italic; }
+  .hero-desc {
+    font-size: 1.05rem; line-height: 1.75; color: var(--ink2);
+    max-width: 44ch; margin-bottom: 2.5rem; font-weight: 300;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    padding: 0.85rem 2rem;
+    background: var(--ink);
+    color: var(--cream);
+    font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; font-weight: 500;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .hero-cta:hover { background: var(--gold); transform: translateY(-1px); }
+  .hero-cta .arrow { font-size: 1rem; }
+
+  .hero-right {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-self: center;
+  }
+  .hero-stat {
+    background: var(--parchment);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-stat::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%; background: var(--gold);
+  }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 700; color: var(--ink); line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); }
+
+  /* ── SECTION COMMON ── */
+  section { position: relative; z-index: 1; }
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 6rem 3rem; }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 1.5rem; height: 1px; background: var(--gold);
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    line-height: 1.15; color: var(--ink); margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
+  .about-left h2 { margin-bottom: 1.5rem; }
+  .about-desc { font-size: 1rem; line-height: 1.85; color: var(--ink2); font-weight: 300; margin-bottom: 1.5rem; }
+  .about-contact { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 2rem; }
+  .contact-row { display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; color: var(--ink2); }
+  .contact-row span { color: var(--gold); font-size: 0.8rem; width: 1rem; text-align: center; }
+
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .skill-group h4 {
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--rust); margin-bottom: 1rem; font-weight: 500;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    padding: 0.3rem 0.8rem;
+    background: var(--parchment);
+    border: 1px solid var(--border);
+    font-size: 0.78rem; color: var(--ink2);
+    white-space: nowrap;
+  }
+  .cert-card {
+    background: var(--parchment); border: 1px solid var(--border);
+    padding: 1rem 1.25rem; margin-top: 0.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cert-name { font-size: 0.88rem; color: var(--ink); font-weight: 500; }
+  .cert-year { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.05em; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none; border-top: 1px solid var(--border); margin: 0;
+  }
+
+  /* ── PORTFOLIO ── */
+  .portfolio-bg { background: var(--parchment); }
+  .portfolio-filter {
+    display: flex; gap: 0.5rem; margin-bottom: 3rem; flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 0.4rem 1.2rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink2); cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--ink); color: var(--cream); border-color: var(--ink);
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .portfolio-item {
+    position: relative; overflow: hidden;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+  .portfolio-item:hover { transform: translateY(-4px); }
+  .portfolio-item.featured { grid-column: span 2; }
+  .portfolio-thumb {
+    width: 100%; aspect-ratio: 4/3; object-fit: cover;
+    display: block; transition: transform 0.5s;
+    background: var(--parchment);
+  }
+  .portfolio-item.featured .portfolio-thumb { aspect-ratio: 16/9; }
+  .portfolio-item:hover .portfolio-thumb { transform: scale(1.04); }
+  .portfolio-info { padding: 1rem 1.25rem; }
+  .portfolio-cat {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.3rem;
+  }
+  .portfolio-title { font-size: 0.95rem; font-weight: 500; color: var(--ink); }
+  .portfolio-overlay {
+    position: absolute; inset: 0;
+    background: rgba(26,18,9,0.72);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+  .overlay-btn {
+    padding: 0.6rem 1.5rem;
+    background: var(--gold);
+    color: var(--ink); font-size: 0.75rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; font-weight: 500;
+    transition: background 0.2s;
+  }
+  .overlay-btn:hover { background: var(--gold-lt); }
+
+  /* ── PLACEHOLDER IMAGE ── */
+  .img-placeholder {
+    width: 100%; aspect-ratio: 4/3; background: var(--parchment);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    color: var(--slate); font-size: 0.9rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .featured .img-placeholder { aspect-ratio: 16/9; }
+
+  /* ── TIMELINE / EDUCATION ── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0.6rem; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 2.5rem; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -2.37rem; top: 0.45rem;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gold); border: 2px solid var(--cream);
+    box-shadow: 0 0 0 1px var(--gold);
+  }
+  .tl-year { font-size: 0.72rem; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.3rem; }
+  .tl-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--ink); margin-bottom: 0.25rem; }
+  .tl-org { font-size: 0.85rem; color: var(--ink2); font-weight: 300; }
+
+  /* ── CONTACT ── */
+  .contact-section { background: var(--ink); }
+  .contact-section .section-label { color: var(--gold-lt); }
+  .contact-section .section-label::before { background: var(--gold-lt); }
+  .contact-section h2 { color: var(--cream); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .contact-intro { font-size: 1rem; line-height: 1.8; color: rgba(250,246,238,0.65); font-weight: 300; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgba(201,147,59,0.3);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .contact-link:hover { border-color: var(--gold); background: rgba(201,147,59,0.08); }
+  .link-icon { font-size: 0.9rem; width: 1.5rem; text-align: center; color: var(--gold); }
+  .link-label { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(250,246,238,0.5); display: block; margin-bottom: 0.1rem; }
+  .link-value { font-size: 0.92rem; color: var(--cream); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(250,246,238,0.35);
+    border-top: 1px solid rgba(201,147,59,0.15);
+    padding: 2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.78rem; letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s, transform 0.7s; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ── SCROLL PROGRESS ── */
+  #scroll-progress {
+    position: fixed; top: 0; left: 0; z-index: 200;
+    height: 2px; width: 0%;
+    background: linear-gradient(90deg, var(--gold), var(--rust));
+    transition: width 0.1s linear;
+  }
+
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px; background: none; border: none;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--ink); transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── MOBILE MENU ── */
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 90;
+    background: var(--cream);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 2.5rem;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .mobile-menu.open {
+    opacity: 1; pointer-events: all;
+  }
+  .mobile-menu a {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+
+  /* ── BACK TO TOP ── */
+  #back-to-top {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 150;
+    width: 44px; height: 44px;
+    background: var(--ink); color: var(--cream);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s, background 0.2s;
+  }
+  #back-to-top.visible { opacity: 1; transform: translateY(0); }
+  #back-to-top:hover { background: var(--gold); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 2rem; }
+    .hero-right { grid-template-columns: 1fr 1fr; }
+    .section-inner { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+    .portfolio-item.featured { grid-column: span 2; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .portfolio-item.featured { grid-column: span 1; }
+    .skills-grid { grid-template-columns: 1fr; }
+    #back-to-top { bottom: 1.25rem; right: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#work" onclick="closeMobileMenu()">Work</a>
+  <a href="#education" onclick="closeMobileMenu()">Education</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+</div>
+
+<!-- BACK TO TOP -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Manjusha B. Shetty</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <circle cx="1100" cy="120" r="320" fill="rgba(201,147,59,0.07)"/>
+      <circle cx="900" cy="700" r="200" fill="rgba(160,75,42,0.05)"/>
+      <line x1="0" y1="880" x2="1440" y2="880" stroke="rgba(201,147,59,0.15)" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="hero-left fade-in">
+    <div class="hero-eyebrow">Graphic Designer &amp; Multimedia Specialist</div>
+    <h1>Crafting <em>worlds</em> through design &amp; 3D</h1>
+    <p class="hero-desc">
+      A passionate creative from Bengaluru, blending graphic design, 3D modeling, and motion art — from 35+ logos to sculpted characters and cinematic environments.
+    </p>
+    <a class="hero-cta" href="#work">
+      View Portfolio <span class="arrow">→</span>
+    </a>
+  </div>
+  <div class="hero-right fade-in">
+    <div class="hero-stat">
+      <div class="stat-number">35+</div>
+      <div class="stat-label">Logos Designed</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-number">3D</div>
+      <div class="stat-label">Models &amp; Sculpts</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-number">98%</div>
+      <div class="stat-label">12th Standard Score</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-number">4+</div>
+      <div class="stat-label">Certifications</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-left fade-in">
+        <div class="section-label">About Me</div>
+        <h2>Designing with intent,<br>building with passion</h2>
+        <p class="about-desc">
+          I am a motivated and adaptable fresher with a strong academic background and growing expertise in graphic design and multimedia. Completing my 12th standard with 98% from Sri Venkatramana Pre University College, I chose to pursue my creative passions in design and media rather than a conventional engineering path.
+        </p>
+        <p class="about-desc">
+          From crafting brand identities and logos, to sculpting 3D characters in Blender and creating motion graphics in After Effects — I bring a multidisciplinary approach to every project.
+        </p>
+        <div class="about-contact">
+          <div class="contact-row"><span>✉</span> shettymanjushabhaskar05@gmail.com</div>
+          <div class="contact-row"><span>☎</span> +91 7483440744</div>
+          <div class="contact-row"><span>◆</span> Kundapura, Karnataka</div>
+        </div>
+      </div>
+
+      <div class="about-right fade-in">
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h4>Design Tools</h4>
+            <div class="skill-tags">
+              <span class="tag">Adobe Illustrator</span>
+              <span class="tag">Adobe Photoshop</span>
+              <span class="tag">CorelDRAW</span>
+              <span class="tag">Adobe Animate</span>
+              <span class="tag">Clip Studio Paint</span>
+              <span class="tag">ibis Paint</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h4>3D &amp; Motion</h4>
+            <div class="skill-tags">
+              <span class="tag">Blender 3D</span>
+              <span class="tag">Autodesk 3ds Max</span>
+              <span class="tag">Adobe After Effects</span>
+              <span class="tag">Adobe Premiere</span>
+              <span class="tag">3D Modeling</span>
+              <span class="tag">Human Anatomy</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h4>Engineering</h4>
+            <div class="skill-tags">
+              <span class="tag">Siemens SolidEdge</span>
+              <span class="tag">XP Pen</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h4>Languages</h4>
+            <div class="skill-tags">
+              <span class="tag">English</span>
+              <span class="tag">Kannada</span>
+              <span class="tag">Hindi</span>
+              <span class="tag">Sanskrit</span>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--rust);margin:2rem 0 1rem;font-weight:500;">Certifications</h4>
+        <div class="cert-card"><span class="cert-name">Autodesk 3Ds Max Certification</span><span class="cert-year">2026</span></div>
+        <div class="cert-card"><span class="cert-name">Diploma in Multimedia &amp; Animation</span><span class="cert-year">2026</span></div>
+        <div class="cert-card"><span class="cert-name">Diploma in Graphic Design</span><span class="cert-year">2025</span></div>
+        <div class="cert-card"><span class="cert-name">Siemens Solid Edge Scholarship</span><span class="cert-year">2022</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PORTFOLIO -->
+<section id="work" class="portfolio-bg">
+  <div class="section-inner">
+    <div class="section-label fade-in">Selected Work</div>
+    <h2 class="fade-in">A diverse creative universe</h2>
+
+    <div class="portfolio-filter fade-in">
+      <button class="filter-btn active" onclick="filterWork('all', this)">All</button>
+      <button class="filter-btn" onclick="filterWork('logo', this)">Logo Design</button>
+      <button class="filter-btn" onclick="filterWork('3d', this)">3D Modeling</button>
+      <button class="filter-btn" onclick="filterWork('sculpt', this)">3D Sculpting</button>
+      <button class="filter-btn" onclick="filterWork('illustration', this)">Illustration</button>
+    </div>
+
+    <div class="portfolio-grid" id="portfolioGrid">
+
+      <!-- Logo Work -->
+      <div class="portfolio-item featured fade-in" data-cat="logo">
+        <img class="portfolio-thumb" 
+          src="https://drive.google.com/thumbnail?id=1FL6oG8D1K60aewrOY25SA-525HL3WCHe&sz=w800"
+          alt="Successful Kitchen Eatery Logo"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none;aspect-ratio:16/9">Successful Kitchen Eatery</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/1FL6oG8D1K60aewrOY25SA-525HL3WCHe/view" target="_blank">View Project</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Logo Design</div>
+          <div class="portfolio-title">Successful Kitchen Eatery — Brand Identity</div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="logo">
+        <img class="portfolio-thumb"
+          src="https://drive.google.com/thumbnail?id=1JkDWy0bGsY4_mHPynx5EL0spZY49W5_V&sz=w600"
+          alt="Caveman Accommodation Logo"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none">Caveman Hotels</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/1JkDWy0bGsY4_mHPynx5EL0spZY49W5_V/view" target="_blank">View Project</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Logo Design</div>
+          <div class="portfolio-title">Caveman Accommodation &amp; Hotels</div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="logo">
+        <img class="portfolio-thumb"
+          src="https://drive.google.com/thumbnail?id=1bqghavibnEwemk4ByAJ1gx_QFYid9LtG&sz=w600"
+          alt="Fashiontopia Logo"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none">Fashiontopia</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/1bqghavibnEwemk4ByAJ1gx_QFYid9LtG/view" target="_blank">View Project</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Logo Design</div>
+          <div class="portfolio-title">Fashiontopia — Fashion Brand Identity</div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="logo">
+        <img class="portfolio-thumb"
+          src="https://drive.google.com/thumbnail?id=1gXbxzgM-WwvQmlXOyczT8-9pmUppq5bg&sz=w600"
+          alt="Federal Medicare Center Logo"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none">Federal Medicare Center</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/1gXbxzgM-WwvQmlXOyczT8-9pmUppq5bg/view" target="_blank">View Project</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Logo Design</div>
+          <div class="portfolio-title">Federal Medicare Center</div>
+        </div>
+      </div>
+
+      <!-- 3D Models -->
+      <div class="portfolio-item featured fade-in" data-cat="3d">
+        <img class="portfolio-thumb"
+          src="https://drive.google.com/thumbnail?id=1BvjXrOX6YLA_aN7Xu7hsKlbORtws46ZK&sz=w800"
+          alt="Medieval Tavern 3D Render"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none;aspect-ratio:16/9">Medieval Tavern Render</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/1BvjXrOX6YLA_aN7Xu7hsKlbORtws46ZK/view" target="_blank">View Full Render</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Blender 3D</div>
+          <div class="portfolio-title">Medieval Tavern — Environmental Scene</div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="3d">
+        <img class="portfolio-thumb"
+          src="https://drive.google.com/thumbnail?id=14G3yfNr66DVeSyjzY-ZGmsvnx3qm0RaB&sz=w600"
+          alt="Sword 3D Render"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none">Sword Render</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/14G3yfNr66DVeSyjzY-ZGmsvnx3qm0RaB/view" target="_blank">View Render</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Blender 3D</div>
+          <div class="portfolio-title">Sword — 3D Model &amp; Render</div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="3d">
+        <img class="portfolio-thumb"
+          src="https://drive.google.com/thumbnail?id=1iP3zFp3kWFBpv7XxavIyD2oDDRofg6t6&sz=w600"
+          alt="Bottle World Concept"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none">Bottle World</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/1iP3zFp3kWFBpv7XxavIyD2oDDRofg6t6/view" target="_blank">View Render</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Blender 3D</div>
+          <div class="portfolio-title">Bottle World — Concept Scene</div>
+        </div>
+      </div>
+
+      <!-- Sculpting -->
+      <div class="portfolio-item fade-in" data-cat="sculpt">
+        <img class="portfolio-thumb"
+          src="https://drive.google.com/thumbnail?id=19YSWIkzsRq_JfCIZtIxilpWRirrmaKoW&sz=w600"
+          alt="Baby Dragon Sculpt"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none">Baby Dragon</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/19YSWIkzsRq_JfCIZtIxilpWRirrmaKoW/view" target="_blank">View Sculpt</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Blender Sculpting</div>
+          <div class="portfolio-title">Baby Dragon — Character Sculpt</div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="sculpt">
+        <img class="portfolio-thumb"
+          src="https://drive.google.com/thumbnail?id=1BcFf5J1JzlxqRufy60ipoA9X_Te6PNaX&sz=w600"
+          alt="Mine Fox Sculpt"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none">Mine Fox</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/1BcFf5J1JzlxqRufy60ipoA9X_Te6PNaX/view" target="_blank">View Sculpt</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Blender Sculpting</div>
+          <div class="portfolio-title">Mine Fox — Character Sculpt</div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="sculpt">
+        <img class="portfolio-thumb"
+          src="https://drive.google.com/thumbnail?id=11nshltifrbhrBvKAMWQqXWwmMlStiPqX&sz=w600"
+          alt="Owl Sculpt"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none">Owl Sculpt</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/11nshltifrbhrBvKAMWQqXWwmMlStiPqX/view" target="_blank">View Sculpt</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Blender Sculpting</div>
+          <div class="portfolio-title">Owl — Character Sculpt</div>
+        </div>
+      </div>
+
+      <!-- Illustrations -->
+      <div class="portfolio-item featured fade-in" data-cat="illustration">
+        <img class="portfolio-thumb"
+          src="https://drive.google.com/thumbnail?id=1YSSEc1ay61d5GJrRlmauqQ6--s_hwzOn&sz=w800"
+          alt="Illustrator Design"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none;aspect-ratio:16/9">Illustrator Design</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/1YSSEc1ay61d5GJrRlmauqQ6--s_hwzOn/view" target="_blank">View Illustration</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Adobe Illustrator</div>
+          <div class="portfolio-title">Digital Illustration — Adobe Illustrator</div>
+        </div>
+      </div>
+
+      <div class="portfolio-item fade-in" data-cat="illustration">
+        <img class="portfolio-thumb"
+          src="https://drive.google.com/thumbnail?id=10PCrnGS2zC09LaL5VfuLbnqo_tAC8ilK&sz=w600"
+          alt="Graphic Illustration"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none">Graphic Illustration</div>
+        <div class="portfolio-overlay">
+          <a class="overlay-btn" href="https://drive.google.com/file/d/10PCrnGS2zC09LaL5VfuLbnqo_tAC8ilK/view" target="_blank">View Work</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-cat">Illustration</div>
+          <div class="portfolio-title">Graphic Illustration Series</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-label fade-in">Background</div>
+    <h2 class="fade-in">Education &amp; Achievements</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;">
+      <div class="timeline fade-in">
+        <div class="timeline-item">
+          <div class="tl-year">2025 – 2025</div>
+          <div class="tl-title">Diploma in Graphic Design</div>
+          <div class="tl-org">Manipal Institute of Computer Education, Udupi</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2025 – 2026</div>
+          <div class="tl-title">Diploma in Multimedia &amp; Animation</div>
+          <div class="tl-org">Manipal Institute of Computer Education, Udupi</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2020 – 2021</div>
+          <div class="tl-title">12th Standard — 98%</div>
+          <div class="tl-org">Sri Venkatramana Pre University College, Kundapura</div>
+        </div>
+      </div>
+      <div class="fade-in">
+        <div style="background:var(--parchment);border:1px solid var(--border);padding:2rem;">
+          <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--rust);margin-bottom:1rem;font-weight:500;">Key Achievements</div>
+          <p style="font-size:0.95rem;line-height:1.8;color:var(--ink2);font-weight:300;margin-bottom:1rem;">
+            Achieved a 98% score in 12th standard and secured rank <strong>6278 in CET</strong>, earning admission to UVCE — one of Karnataka's premier engineering colleges.
+          </p>
+          <p style="font-size:0.95rem;line-height:1.8;color:var(--ink2);font-weight:300;margin-bottom:1rem;">
+            Concurrently selected for the <strong>Siemens Scholarship Program (SSP)</strong>, gaining structured industry-relevant training and building expertise in SolidEdge.
+          </p>
+          <p style="font-size:0.95rem;line-height:1.8;color:var(--ink2);font-weight:300;">
+            Designed <strong>35+ logos in just 3 days</strong> — demonstrating speed, consistency, and creative range across diverse industry briefs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-inner">
+    <div class="section-label fade-in">Get In Touch</div>
+    <h2 class="fade-in">Let's create something<br><em style="font-family:'Playfair Display',serif;font-style:italic;color:var(--gold-lt);">extraordinary together</em></h2>
+    <div class="contact-grid">
+      <div class="fade-in">
+        <p class="contact-intro">
+          I'm currently seeking opportunities in graphic design, 3D modeling, and multimedia — and I'm always excited to collaborate on creative projects that push boundaries. Reach out and let's talk!
+        </p>
+      </div>
+      <div class="contact-links fade-in">
+        <a class="contact-link" href="mailto:shettymanjushabhaskar05@gmail.com">
+          <span class="link-icon">✉</span>
+          <span>
+            <span class="link-label">Email</span>
+            <span class="link-value">shettymanjushabhaskar05@gmail.com</span>
+          </span>
+        </a>
+        <a class="contact-link" href="tel:+917483440744">
+          <span class="link-icon">☎</span>
+          <span>
+            <span class="link-label">Phone</span>
+            <span class="link-value">+91 7483440744</span>
+          </span>
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/manjusha-bhaskar-shetty-03b016373" target="_blank">
+          <span class="link-icon">in</span>
+          <span>
+            <span class="link-label">LinkedIn</span>
+            <span class="link-value">manjusha-bhaskar-shetty-03b016373</span>
+          </span>
+        </a>
+        <a class="contact-link" href="https://manjushabhaskarshettyportfolio.my.canva.site/manjusha-bhaskar-shetty" target="_blank">
+          <span class="link-icon">◈</span>
+          <span>
+            <span class="link-label">Canva Portfolio</span>
+            <span class="link-value">manjusha-bhaskar-shetty.canva.site</span>
+          </span>
+        </a>
+        <a class="contact-link" href="https://drive.google.com/drive/folders/1ik8TZgHI2wQfu0DbSRdj5rTzcP2PDJWm" target="_blank">
+          <span class="link-icon">◉</span>
+          <span>
+            <span class="link-label">Full Drive Portfolio</span>
+            <span class="link-value">Google Drive — All Work</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Manjusha Bhaskar Shetty. All rights reserved.</span>
+  <span>Graphic Designer &amp; Multimedia Specialist — Bengaluru, Karnataka</span>
+</footer>
+
+<script>
+  // Intersection observer for fade-ins
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i * 0.06) + 's';
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // Portfolio filter
+  function filterWork(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+      const show = cat === 'all' || item.dataset.cat === cat;
+      item.style.display = show ? 'block' : 'none';
+    });
+  }
+
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = total > 0 ? (scrolled / total) * 100 : 0;
+    document.getElementById('scroll-progress').style.width = pct + '%';
+
+    // Back to top visibility
+    const btn = document.getElementById('back-to-top');
+    if (scrolled > 400) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  });
+
+  // Mobile menu
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const ham = document.getElementById('hamburger');
+    const isOpen = menu.classList.toggle('open');
+    ham.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Active nav link highlighting on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const scrollSpy = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === '#' + entry.target.id ? 'var(--gold)' : '';
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => scrollSpy.observe(s));
+</script>
+
+</body>
+</html>
